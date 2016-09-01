@@ -14,6 +14,7 @@ Samples are available in the following programming languages:
 * [C#](CSharp/)
 * [Python](Python/)
 * [Node.js](NodeJS/)
+* [Ruby](Ruby/)
 
 Test certificates
 -----------------
