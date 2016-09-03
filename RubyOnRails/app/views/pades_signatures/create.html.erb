@@ -1,0 +1,24 @@
+<div class="container">
+  <h2>PAdES Signature</h2>
+
+  <p>File signed successfully! <a href="/uploads/<%= @pades_signature.file_name %>">Click here to download the signed file</a></p>
+
+  <p>
+    Signer information:
+  <ul>
+    <li>Subject: <%= @pades_signature.certificate.subjectName.commonName %> </li>
+    <li>Email: <%= @pades_signature.certificate.emailAddress %></li>
+    <li>
+      ICP-Brasil fields
+      <ul>
+        <li>Tipo de certificado: <%= @pades_signature.certificate.pkiBrazil.certificateType %></li>
+        <li>CPF: <%= @pades_signature.certificate.pkiBrazil.cpf %></li>
+        <li>Responsavel: <%= @pades_signature.certificate.pkiBrazil.responsavel %></li>
+        <li>Empresa: <%= @pades_signature.certificate.pkiBrazil.companyName %></li>
+        <li>CNPJ: <%= @pades_signature.certificate.pkiBrazil.cnpj %> </li>
+      </ul>
+    </li>
+  </ul>
+  </p>
+  <p><a href="#">Click here</a> to co-sign with another certificate</p>
+</div>
