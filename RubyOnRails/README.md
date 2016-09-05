@@ -30,9 +30,10 @@ And then execute:
 
 ## Usage
 
-Create a initialize file
+Modify a initialize file rest_pki.rb   
 
 ```ruby
+    # config/initializers/rest_pki.rb
     require 'rest_pki'
     RestPki.api_key = 'PLACE YOUR API KEY/ACCESS TOKEN'
 ```
