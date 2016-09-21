@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/LacunaSoftware/RestPkiRubyClient.git
-  revision: fc045353b15114a1ec3e431ff57709fa0a1b6099
+  revision: 7c62dd59e3914c2174211472ba3f44a82997285b
   specs:
     rest_pki (0.0.1)
       multi_json
@@ -117,7 +117,7 @@ GEM
       activesupport (= 4.2.6)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (11.2.2)
+    rake (11.3.0)
     rdoc (4.2.2)
       json (~> 1.4)
     rest-client (2.0.0)

@@ -7,10 +7,51 @@ class PadesSignaturesController < ApplicationController
 
   def new
     begin
+      pdf_stamp = File.read(Rails.root.join('app/assets', 'images', 'PdfStamp.png'))
+
+      visual_representation = {
+              text: {
+                  horizontalAlign: 'Left',
+                  text: 'Signed by {{signerName}} ({{signerNationalId}})',
+                  includeSigningTime: true
+              },
+              image: {
+                  opacity: 50,
+                  horizontalAlign: 'Right',
+                  resource: {
+                      content: Base64.encode64(pdf_stamp),
+                      mimeType: 'image/png'
+                  }
+              },
+              position: {
+                  measurementUnits: 'Centimeters',
+                  manual: nil,
+                  pageNumber: -1,
+                  pageOptimization: nil,
+                  auto: {
+                      signatureRectangleSize: {
+                          width: 4.2,
+                          height: 1.8
+                      },
+                      container: {
+                          right: 1.0,
+                          bottom: 1.0,
+                          top: nil,
+                          height: 1.8,
+                          width: nil,
+                          left: 1.0
+                      },
+                      rowSpacing: 0.3
+                  }
+              }
+          }
+
     @file_name = Rails.root.join('public', 'uploads', '01.pdf')
     @pades_signature = RestPki::PadesSignature.new(@file_name,
-                                        RestPki::StandardSecurityContexts::PKI_BRAZIL,
-                                        RestPki::StandardSignaturePolicies::PADES_BASIC
+                                                   RestPki::StandardSecurityContexts::PKI_BRAZIL,
+                                                   RestPki::StandardSignaturePolicies::PADES_BASIC,
+                                                   nil,
+                                                   visual_representation
     ).start_with_web_pki
     rescue => ex
       @errors = ex.error.to_hash
