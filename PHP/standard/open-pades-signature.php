@@ -3,17 +3,17 @@
  * This file submits a PDF file to Rest PKI for inspection of its signatures and renders the results.
  */
 
-// The file RestPki.php contains the helper classes to call the REST PKI API
-require_once 'RestPki.php';
+// The file autoload.php loads automatically the classes from the REST PKI Client lib.
+require_once 'vendor/autoload.php';
 
 // The file util.php contains the function getRestPkiClient(), which gives us an instance of the RestPkiClient class
 // initialized with the API access token
 require_once 'util.php';
 
-use Lacuna\PadesSignatureExplorer;
-use Lacuna\StandardSignaturePolicies;
-use Lacuna\StandardSecurityContexts;
-use Lacuna\StandardSignaturePolicyCatalog;
+use Lacuna\RestPki\Client\PadesSignatureExplorer;
+use Lacuna\RestPki\Client\StandardSignaturePolicies;
+use Lacuna\RestPki\Client\StandardSecurityContexts;
+use Lacuna\RestPki\Client\StandardSignaturePolicyCatalog;
 
 // This function is called below. It encapsulates examples of signature validation parameters.
 function setValidationParameters($sigExplorer, $caseNumber)
@@ -35,9 +35,9 @@ function setValidationParameters($sigExplorer, $caseNumber)
             // By omitting the accepted policies catalog and defining a default policy, we're telling Rest PKI to
             // validate all signatures in the file with the default policy -- even signatures with an explicit signature
             // policy.
-            $sigExplorer->setDefaultSignaturePolicyId(StandardSignaturePolicies::PADES_BASIC);
+            $sigExplorer->setDefaultSignaturePolicy(StandardSignaturePolicies::PADES_BASIC);
             // The PAdES Basic policy requires us to choose a security context
-            $sigExplorer->setSecurityContextId(StandardSecurityContexts::PKI_BRAZIL);
+            $sigExplorer->setSecurityContext(StandardSecurityContexts::PKI_BRAZIL);
             break;
 
         /**
@@ -55,8 +55,8 @@ function setValidationParameters($sigExplorer, $caseNumber)
          * Same case as example #1, but using the WindowsServer trust arbitrator
          */
         case 3:
-            $sigExplorer->setDefaultSignaturePolicyId(StandardSignaturePolicies::PADES_BASIC);
-            $sigExplorer->setSecurityContextId(StandardSecurityContexts::WINDOWS_SERVER);
+            $sigExplorer->setDefaultSignaturePolicy(StandardSignaturePolicies::PADES_BASIC);
+            $sigExplorer->setSecurityContext(StandardSecurityContexts::WINDOWS_SERVER);
             break;
 
         /**

@@ -6,18 +6,21 @@
  * identifies this signature process, to be used in the next signature steps (see batch-signature-form.js).
  */
 
-// The file RestPki.php contains the helper classes to call the REST PKI API
-require_once 'RestPki.php';
+// The file autoload.php loads automatically the classes from the REST PKI Client lib.
+require_once 'vendor/autoload.php';
 
 // The file util.php contains the function getRestPkiClient(), which gives us an instance of the RestPkiClient class
 // initialized with the API access token
 require_once 'util.php';
 
-use Lacuna\PadesSignatureStarter;
-use Lacuna\StandardSignaturePolicies;
-use Lacuna\PadesMeasurementUnits;
+// The file pades-visual-elements.php contains sample settings for visual representations and PDF marks (see below)
+require_once 'pades-visual-elements.php';
+
+use Lacuna\RestPki\Client\PadesSignatureStarter;
+use Lacuna\RestPki\Client\StandardSignaturePolicies;
+use Lacuna\RestPki\Client\PadesMeasurementUnits;
+use Lacuna\RestPki\Client\StandardSecurityContexts;
 use Lacuna\PadesVisualElements;
-use Lacuna\StandardSecurityContexts;
 
 
 // Get the document id for this signature (received from the POST call, see batch-signature-form.js)
@@ -31,7 +34,7 @@ $signatureStarter = new PadesSignatureStarter(getRestPkiClient());
 $signatureStarter->measurementUnits = PadesMeasurementUnits::CENTIMETERS;
 
 // Set the document to be signed based on its ID
-$signatureStarter->setPdfToSignPath("content/{$id}.pdf");
+$signatureStarter->setPdfFileToSign("content/{$id}.pdf");
 
 // Set the signature policy
 $signatureStarter->setSignaturePolicy(StandardSignaturePolicies::PADES_BASIC);
@@ -98,7 +101,7 @@ $signatureStarter->setVisualRepresentation([
 	Experiment changing the argument to see different examples of PDF marks. Once you decide which is best for your case,
 	you can place the code directly here.
 */
-//array_push($signatureStarter->pdfMarks, PadesVisualElements::GetPdfMark(1));
+//array_push($signatureStarter->pdfMarks, PadesVisualElements::getPdfMark(1));
 
 // Call the startWithWebPki() method, which initiates the signature. This yields the token, a 43-character
 // case-sensitive URL-safe string, which identifies this signature process. We'll use this value to call the

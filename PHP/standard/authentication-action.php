@@ -4,8 +4,8 @@
  * This file receives the form submission from authentication.php. We'll call REST PKI to validate the authentication.
  */
 
-// The file RestPki.php contains the helper classes to call the REST PKI API
-require_once 'RestPki.php';
+// The file autoload.php loads automatically the classes from the REST PKI Client lib.
+require_once 'vendor/autoload.php';
 
 // The file util.php contains the function getRestPkiClient(), which gives us an instance of the RestPkiClient class
 // initialized with the API access token

@@ -5,26 +5,26 @@
  * is posted to another file, xml-element-signature-action.php, which calls REST PKI again to complete the signature.
  */
 
-// The file RestPki.php contains the helper classes to call the REST PKI API
-require_once 'RestPki.php';
+// The file autoload.php loads automatically the classes from the REST PKI Client lib.
+require_once 'vendor/autoload.php';
 
 // The file util.php contains the function getRestPkiClient(), which gives us an instance of the RestPkiClient class
 // initialized with the API access token
 require_once 'util.php';
 
-use Lacuna\XmlElementSignatureStarter;
-use Lacuna\StandardSecurityContexts;
-use Lacuna\StandardSignaturePolicies;
+use Lacuna\RestPki\Client\XmlElementSignatureStarter;
+use Lacuna\RestPki\Client\StandardSecurityContexts;
+use Lacuna\RestPki\Client\StandardSignaturePolicies;
 
 // Instantiate the XmlElementSignatureStarter class, responsible for receiving the signature elements and start the
 // signature process
 $signatureStarter = new XmlElementSignatureStarter(getRestPkiClient());
 
 // Set the XML to be signed, a sample Brazilian fiscal invoice pre-generated
-$signatureStarter->setXmlToSignPath('content/SampleNFe.xml');
+$signatureStarter->setXmlFileToSign('content/SampleNFe.xml');
 
 // Set the ID of the element to be signed
-$signatureStarter->setToSignElementId('NFe35141214314050000662550010001084271182362300');
+$signatureStarter->setToSignElement('NFe35141214314050000662550010001084271182362300');
 
 // Set the signature policy
 $signatureStarter->setSignaturePolicy(StandardSignaturePolicies::XML_ICPBR_NFE_PADRAO_NACIONAL);

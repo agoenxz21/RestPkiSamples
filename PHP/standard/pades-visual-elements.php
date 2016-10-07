@@ -2,6 +2,19 @@
 
 namespace Lacuna;
 
+// The file autoload.php loads automatically the classes from the REST PKI Client lib.
+require_once 'vendor/autoload.php';
+
+use Lacuna\RestPki\Client\Color;
+use Lacuna\RestPki\Client\PadesVisualPositioningPresets;
+use Lacuna\RestPki\Client\PadesMeasurementUnits;
+use Lacuna\RestPki\Client\PdfMark;
+use Lacuna\RestPki\Client\PdfMarkImage;
+use Lacuna\RestPki\Client\PdfMarkImageElement;
+use Lacuna\RestPki\Client\PdfMarkTextElement;
+use Lacuna\RestPki\Client\PdfTextSection;
+use Lacuna\RestPki\Client\PdfTextStyle;
+
 // This class contains settings for signature visual positioning and PDF marks, which are options when performing
 // PAdES signatures.
 class PadesVisualElements

@@ -11,15 +11,16 @@
  * 3. Co-signature of a previously signed CMS    : "cmsfile" filled
  */
 
-// The file RestPki.php contains the helper classes to call the REST PKI API
-require_once 'RestPki.php';
+// The file autoload.php loads automatically the classes from the REST PKI Client lib.
+require_once 'vendor/autoload.php';
 
 // The file util.php contains the function getRestPkiClient(), which gives us an instance of the RestPkiClient class
 // initialized with the API access token
 require_once 'util.php';
 
-use Lacuna\CadesSignatureStarter;
-use Lacuna\StandardSignaturePolicies;
+use Lacuna\RestPki\Client\CadesSignatureStarter;
+use Lacuna\RestPki\Client\StandardSignaturePolicies;
+use Lacuna\RestPki\Client\StandardSecurityContexts;
 
 $userfile = isset($_GET['userfile']) ? $_GET['userfile'] : null;
 $cmsfile = isset($_GET['cmsfile']) ? $_GET['cmsfile'] : null;
@@ -64,7 +65,7 @@ if (!empty($userfile)) {
 $signatureStarter->setSignaturePolicy(StandardSignaturePolicies::CADES_ICPBR_ADR_BASICA);
 
 // Optionally, set a SecurityContext to be used to determine trust in the certificate chain
-//$signatureStarter->setSecurityContext(\Lacuna\StandardSecurityContexts::PKI_BRAZIL);
+//$signatureStarter->setSecurityContext(StandardSecurityContexts::PKI_BRAZIL);
 // Note: Depending on the signature policy chosen above, setting the security context may be mandatory (this is not
 // the case for ICP-Brasil policies, which will automatically use the PKI_BRAZIL security context if none is passed)
 

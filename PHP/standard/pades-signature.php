@@ -8,8 +8,8 @@
  * is that, when the file is uploaded by the user, the page is called with a URL argument named "userfile".
  */
 
-// The file RestPki.php contains the helper classes to call the REST PKI API
-require_once 'RestPki.php';
+// The file autoload.php loads automatically the classes from the REST PKI Client lib.
+require_once 'vendor/autoload.php';
 
 // The file util.php contains the function getRestPkiClient(), which gives us an instance of the RestPkiClient class
 // initialized with the API access token
@@ -18,11 +18,11 @@ require_once 'util.php';
 // The file pades-visual-elements.php contains sample settings for visual representations and PDF marks (see below)
 require_once 'pades-visual-elements.php';
 
-use Lacuna\PadesSignatureStarter;
-use Lacuna\StandardSignaturePolicies;
-use Lacuna\PadesMeasurementUnits;
+use Lacuna\RestPki\Client\PadesSignatureStarter;
+use Lacuna\RestPki\Client\StandardSignaturePolicies;
+use Lacuna\RestPki\Client\PadesMeasurementUnits;
+use Lacuna\RestPki\Client\StandardSecurityContexts;
 use Lacuna\PadesVisualElements;
-use Lacuna\StandardSecurityContexts;
 
 // Instantiate the PadesSignatureStarter class, responsible for receiving the signature elements and start the signature
 // process
@@ -90,9 +90,9 @@ $signatureStarter->setVisualRepresentation([
 // document.
 $userfile = isset($_GET['userfile']) ? $_GET['userfile'] : null;
 if (!empty($userfile)) {
-    $signatureStarter->setPdfToSignPath("app-data/{$userfile}");
+    $signatureStarter->setPdfFileToSign("app-data/{$userfile}");
 } else {
-    $signatureStarter->setPdfToSignPath('content/SampleDocument.pdf');
+    $signatureStarter->setPdfFileToSign('content/SampleDocument.pdf');
 }
 
 /*

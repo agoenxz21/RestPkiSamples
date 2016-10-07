@@ -1,8 +1,9 @@
 <?php
 
-require_once 'RestPki.php';
+// The file autoload.php loads automatically the classes from the REST PKI Client lib.
+require_once 'vendor/autoload.php';
 
-use Lacuna\RestPkiClient;
+use Lacuna\RestPki\Client\RestPkiClient;
 
 function getRestPkiClient()
 {
